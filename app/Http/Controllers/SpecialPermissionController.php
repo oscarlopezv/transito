@@ -13,21 +13,21 @@ class SpecialPermissionController extends Controller
      */
     public function index()
     {
-        $permisions = special_permission::select("*");
-        
+      
+        $permisions = [];
         if( @$_GET['placa'])
         {
             $placa = $_GET['placa'] ;
-            $permisions = $permisions->where('placa',"=",$placa);
+            $permisions = special_permission::where('placa',"=",$placa)->get();
         }
 
-        if( @$_GET['lateral'])
-        {
-            $lateral = $_GET['lateral'];
-            $permisions = $permisions->where('lateral',"=",$lateral);
-        }
+        // if( @$_GET['lateral'])
+        // {
+        //     $lateral = $_GET['lateral'];
+        //     $permisions = $permisions->where('lateral',"=",$lateral);
+        // }
         
-        $permisions = $permisions->get();
+       
         $tipoVehiculoArray = vehicle_type::all();
         $tipoVehiculo = [];
         foreach( $tipoVehiculoArray as $vehiculo)

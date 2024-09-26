@@ -22,7 +22,6 @@ class VehicleTypeController extends Controller
      */
     public function create()
     {
-        
         return inertia('vehicleType/create');
     }
 

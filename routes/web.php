@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\DocumentTypeController;
+use App\Http\Controllers\EjecutionController;
 use App\Http\Controllers\SpecialPermissionController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\VehicleTypeController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -26,14 +28,16 @@ Route::middleware([
         return Inertia::render('Dashboard');
     })->name('dashboard');
 
-    Route::resource('/permission', SpecialPermissionController::class)->names("permission");
-    Route::get('/borrar/{special_permission}',[SpecialPermissionController::class,'borrar']);
-    Route::post('/filtro',[SpecialPermissionController::class,'filtro']);
+    Route::resource('/specialpermission', SpecialPermissionController::class)->names("permission");
 
     Route::resource('/vehicle_type',VehicleTypeController::class);
 
     Route::resource('/document_type',DocumentTypeController::class);
     Route::resource('/document',DocumentController::class);
+
+    Route::resource('/user',UserController::class);
+
+    Route::resource('/ejecution',EjecutionController::class);
     
 });
 

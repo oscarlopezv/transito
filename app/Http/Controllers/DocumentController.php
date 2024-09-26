@@ -86,6 +86,7 @@ class DocumentController extends Controller
      */
     public function destroy(document $document)
     {
-        //
+        $document->delete();
+        return redirect('document');
     }
 }

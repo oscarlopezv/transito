@@ -53,19 +53,19 @@ const logout = () => {
                                 </NavLink>
                             </div>
 
-                            <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                                <NavLink :href="route('permission.index')" :active="route().current('permission.index')">
-                                    Permiso
-                                </NavLink>
-                            </div>
-
-                            <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                            <div v-if="$page.props.user.roles.includes('admin')" class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                                 <NavLink :href="route('vehicle_type.index')" :active="route().current('vehicle_type.index')">
                                     Tipo vehiculo
                                 </NavLink>
                             </div>
 
                             <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                                <NavLink :href="route('permission.index')" :active="route().current('permission.index')">
+                                    Permiso
+                                </NavLink>
+                            </div>
+
+                            <div v-if="$page.props.user.roles.includes('admin')" class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                                 <NavLink :href="route('document_type.index')" :active="route().current('document_type.index')">
                                     Tipo documento
                                 </NavLink>
@@ -74,6 +74,18 @@ const logout = () => {
                             <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                                 <NavLink :href="route('document.index')" :active="route().current('document.index')">
                                     Repositorio
+                                </NavLink>
+                            </div>
+
+                            <div v-if="$page.props.user.roles.includes('admin')" class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                                <NavLink :href="route('user.index')" :active="route().current('user.index')">
+                                    Usuarios
+                                </NavLink>
+                            </div>
+
+                            <div v-if="$page.props.user.roles.includes('admin')" class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                                <NavLink :href="route('ejecution.index')" :active="route().current('ejecution.index')">
+                                    Ejecuciones SMM
                                 </NavLink>
                             </div>
 

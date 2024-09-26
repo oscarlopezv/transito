@@ -11,7 +11,7 @@ const form = useForm({
 
 
 <template>
-    <AppLayout title="Dashboard">
+    <AppLayout title="Tipo Vehiculo">
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 Crear tipo vehiculo

@@ -1,6 +1,5 @@
 <script setup>
 import AppLayout from '@/Layouts/AppLayout.vue';
-import { useForm , Link} from '@inertiajs/vue3'
 import { router } from '@inertiajs/vue3'
 
 
@@ -23,7 +22,7 @@ const borrarTipoDocumento = (id) =>
 
 
 <template>
-    <AppLayout title="Dashboard">
+    <AppLayout title="Tipo Documento">
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 Tipos documento
@@ -37,7 +36,7 @@ const borrarTipoDocumento = (id) =>
                         
                         <a :href="route('document_type.create')" class="text-white bg-blue-500 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 m-2.5">Nuevo Tipo documento</a>
                         <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 mt-3">
-                            <thead class="text-xs text-gray-700 uppercase bg-gray-400 dark:bg-gray-700 dark:text-gray-400">
+                            <thead class="text-xs text-gray-100 uppercase bg-blue-400">
                                 <tr>
                                     <th scope="col" class="px-6 py-3">
                                         Tipo documento
@@ -48,12 +47,12 @@ const borrarTipoDocumento = (id) =>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="(item,index) in tipoDoc" :key="index" class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
+                                <tr v-for="(item,index) in tipoDoc" :key="index" class="hover:bg-blue-200">
                                     <td class="px-6 py-4">
                                         {{item.name}}
                                     </td>
                                     <td class="px-6 py-4">
-                                        <button @click="borrarTipoDocumento(item.id)">Borrar</button>
+                                        <button @click="borrarTipoDocumento(item.id)" class="focus:outline-none text-white bg-red-500 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">Borrar</button>
                                     </td>
                                 </tr>
                             </tbody>
