@@ -36,7 +36,7 @@ class EjecutionController extends Controller
             'description' => "required|string",
         ]);
         
-        $ejecution = ejecution::create( $validate);
+        $ejecution = ejecution::create($validate);
         $name = str_replace(' ', '', $validate['name']);
         foreach($request->file('files') as $file)
         {
@@ -72,11 +72,24 @@ class EjecutionController extends Controller
      */
     public function update(Request $request, ejecution $ejecution)
     {
-        return $request;
-        // foreach ($request->file('newFiles') as $file )
-        // {
-        //    return $file->getClientOriginalName();
-        // }
+        
+        $ejecution = ejecution::find($request->id);
+        $name = str_replace(' ', '', $ejecution->name);
+        $ejecution->description = $request->description;
+        $ejecution->update();
+
+        if($request->file('files'))
+        {
+            foreach($request->file('files') as $file)
+            {
+                $ruta = $file->store($name, 'public');
+                $ejecution_file = new ejecution_file();
+                $ejecution_file->name = $file->getClientOriginalName();
+                $ejecution_file->ejecution_id = $ejecution->id;
+                $ejecution_file->url = $ruta;
+                $ejecution_file->save();
+            }
+        }
     }
 
     /**
@@ -89,9 +102,18 @@ class EjecutionController extends Controller
 
     public function deleteFile(Request $request)
     {
-        return $request;
-        return "delete";
-        $ejecution_file = ejecution_file::find($id);
+
+        $ejecution_file = ejecution_file::find($request->id);
+       
+        $url = $ejecution_file->url;
+        //ruta absoluta del archivo
+        $dir = explode('app\Http\Controllers', dirname(__FILE__));
+        $ruta = $dir[0] ."public\storage\/" . $url;
+
+        //Se borra el registro y el archivo
         $ejecution_file->delete();
+        unlink($ruta);
+
+        // $ejecution_file->delete();
     }
 }
