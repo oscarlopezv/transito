@@ -37,7 +37,14 @@ Route::middleware([
 
     Route::resource('/user',UserController::class);
 
-    Route::resource('/ejecution',EjecutionController::class);
+    // Route::resource('/ejecution',EjecutionController::class);
+    Route::get('/ejecution',[EjecutionController::class,'index'])->name('ejecution.index');
+    Route::get('/ejecution/create',[EjecutionController::class,'create'])->name('ejecution.create');
+    Route::post('/ejecution',[EjecutionController::class,'store']);
+    Route::get('/ejecution/{ejecution}/edit',[EjecutionController::class,'edit'])->name('ejecution.edit');
+    Route::post('/update',[EjecutionController::class,'update'])->name('ejecution.update');
+
+
     Route::post('/deleteFile',[EjecutionController::class,'deleteFile'])->name('deleteFile');
     
 });
