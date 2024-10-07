@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('ejecution_files', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
             $table->unsignedBigInteger('ejecution_id');
             $table->string('url');
             $table->timestamps();

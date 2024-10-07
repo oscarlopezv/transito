@@ -5,12 +5,9 @@ import { router } from '@inertiajs/vue3'
 
 
 defineProps({
-    permisions:{
+    ejecutions:{
         type:Object,
         required:true
-    },
-    tipoVehiculo:{
-        type:Object
     },
     token:{
         type:String
@@ -46,7 +43,7 @@ const deletePermission = id =>
                         <form action='specialpermission' method="get">
                             <div class="pt-6">
                                 <input type="hidden" name="_token" :value="token" />
-                                <input type="text" maxlength="6" id="placa" name="placa" class="pl-4 ml-2 text-gray-900 border border-gray-300 rounded-lg" placeholder="Placa">
+                                <input type="text" maxlength="6" id="name" name="name" class="pl-4 ml-2 text-gray-900 border border-gray-300 rounded-lg" placeholder="Nombre">
                                 <button type="submit" class="pl-4 ml-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Buscar</button>
                             </div>  
                         </form>
@@ -55,16 +52,10 @@ const deletePermission = id =>
                             <thead class="text-xs text-gray-100 uppercase bg-blue-400">
                                 <tr>
                                     <th scope="col" class="px-6 py-3">
-                                        Tipo vehículo
+                                       Nombre
                                     </th>
                                     <th scope="col" class="px-6 py-3">
-                                        Placa
-                                    </th>
-                                    <th scope="col" class="px-6 py-3">
-                                        Lateral
-                                    </th>
-                                    <th scope="col" class="px-6 py-3">
-                                        Permiso
+                                        Descripción
                                     </th>
                                     <th scope="col" class="px-6 py-3" v-if="$page.props.user.roles.includes('admin')" >
                                         Acción
@@ -72,21 +63,20 @@ const deletePermission = id =>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="(item,index) in permisions" :key="index" class="hover:bg-blue-200">
+                                <td class="px-6 py-4" v-if="!ejecutions">
+                                    Sin información        
+                                </td>
+                                <tr v-for="(item,index) in ejecutions" :key="index" class="hover:bg-blue-200">
+                                    
                                     <td class="px-6 py-4">
-                                        {{tipoVehiculo[item.vehicle_type_id]}}
+                                        {{item.name }}
                                     </td>
                                     <td class="px-6 py-4">
-                                        {{item.placa}}
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        {{item.lateral }}
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        {{ item.permiso }}
+                                        {{ item.description.substring(0,50) }}
                                     </td>
                                     <td v-if="$page.props.user.roles.includes('admin')"  class="px-6 py-4">
-                                        <button @click="deletePermission(item.id)"  class="focus:outline-none text-white bg-red-500 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">Borrar</button>
+                                        <button @click="deletePermission(item.id)" class="focus:outline-none text-white bg-red-500 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">Borrar</button>
+                                        <a :href="route('ejecution.edit',item.id)" class="focus:outline-none text-white bg-green-500 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">Editar</a>
                                     </td>
                                 </tr>
                             </tbody>

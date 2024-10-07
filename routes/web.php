@@ -38,6 +38,7 @@ Route::middleware([
     Route::resource('/user',UserController::class);
 
     Route::resource('/ejecution',EjecutionController::class);
+    Route::post('/deleteFile',[EjecutionController::class,'deleteFile'])->name('deleteFile');
     
 });
 

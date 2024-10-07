@@ -1,22 +1,27 @@
 <script setup>
 import AppLayout from '@/Layouts/AppLayout.vue';
 import { useForm } from '@inertiajs/vue3'
-import { reactive, ref } from 'vue';
+import { ref } from 'vue';
+import { router } from '@inertiajs/vue3'
 
-
-
-const form = useForm({
-    name:'',
-    description:'',
-    files:[]
+const props = defineProps({
+    ejecution:{
+        type:Object,
+        required:true
+    },
+    files:{
+        type:Object,
+        required:true
+    }
 })
 
-const inputs = ref([
-    { 
-        label:"Archivo",
-        id : Math.floor(Math.random() * 10000)
-    }
-]);
+const form = useForm({
+    name:props.ejecution.name,
+    description:props.ejecution.description,
+    files:[],
+})
+
+const inputs = ref([]);
 
 const agregarCampo = () =>
 {
@@ -32,10 +37,24 @@ const eliminarCampo = (id) =>
     inputs.value = arr;
 }
 
-let flag = 0;
-const obtenerArchivos = (e) =>
+// let archivos = ref(form.files);
+
+const eliminarArchivo = (id) =>
 {
-    form.files[flag++] = e.target.files[0];   
+    if(confirm('Esta seguro?'))
+    {
+        props.files.splice(id ,1);
+        router.post(route('deleteFile', id));
+    }
+}
+
+
+let flag = 0 ;
+const obtenerArchivos = (event) =>
+{
+    console.log(event.target.files);
+    form.files[flag++] = event.target.files; 
+   
 }
 </script>
 
@@ -44,14 +63,14 @@ const obtenerArchivos = (e) =>
     <AppLayout title="Ejecuciones SMM">
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Crear ejecución SMM
+                Editar ejecución SMM
             </h2>
         </template>
 
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-                    <form class="max-w-7xl mx-5 p-4" @submit.prevent="form.put(route('ejecution.store'))" enctype="multipart/form-data">
+                    <form class="max-w-7xl mx-5 p-4" @submit.prevent="form.put(route('ejecution.update',ejecution))" enctype="multipart/form-data">
                         
                         <div class="mb-5">
                             <label for="" class="block mb-2 text-sm font-medium text-gray-900 ">Nombre ejecución*</label>
@@ -68,17 +87,26 @@ const obtenerArchivos = (e) =>
                         </svg>
                         
                         <div class="grid grid-cols-3 gap-6">
-                            <div class="" v-for="(item, index) in inputs" :key="index" >
-                                {{ item  }}
-                                <div :id="item.id">
-                                    <label for="" class="block text-sm font-medium text-gray-900">Archivo(PDF)*</label>
-                                    <input type="file" @change="obtenerArchivos" :id="'file-' + index" name="files[]" class="block w-full p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-base " >                                
-                                    <label for="" class="block text-sm font-medium text-red-950 text-right hover:cursor-pointer" @click="eliminarCampo(item.id)">[X] - {{ index }}</label>
+                            <div class="" v-for="(item,index) in props.files" :key="index" >
+                                <label for="" class="block text-sm font-medium text-gray-900">{{ item.name }}</label>
+                                <div class="w-full">
+                                    <label for="" class="block text-sm font-medium text-red-800 text-right hover:cursor-pointer w-1/12" @click="eliminarArchivo(item.id,index)">[Borrar]</label>
                                 </div>
                             </div>
                         </div>
 
-                        <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Crear</button>
+                        <div class="grid grid-cols-3 gap-6">
+                            <div class="" v-for="(item1,index1) in inputs" :key="index1" >
+                                <div :id="item1.id">
+                                    <label for="" class="block text-sm font-medium text-gray-900">Archivo(PDF)*</label>
+                                    <input type="file" @change="obtenerArchivos($event)" id="files" name="files[]" class="block w-full p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-base" required >                                
+                                    <label for="" class="block text-sm font-medium text-red-950 text-right hover:cursor-pointer" @click="eliminarCampo(item1.id)">[X]</label>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Actualizar</button>
                     </form>
                 </div>
             </div>
