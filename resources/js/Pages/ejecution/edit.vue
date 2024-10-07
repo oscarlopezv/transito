@@ -52,9 +52,7 @@ const eliminarArchivo = (id) =>
 let flag = 0 ;
 const obtenerArchivos = (event) =>
 {
-    console.log(event.target.files);
     form.files[flag++] = event.target.files; 
-   
 }
 </script>
 
@@ -70,7 +68,7 @@ const obtenerArchivos = (event) =>
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-                    <form class="max-w-7xl mx-5 p-4" @submit.prevent="form.put(route('ejecution.update',ejecution))" enctype="multipart/form-data">
+                    <form class="max-w-7xl mx-5 p-4" @submit.prevent="form.post(route('ejecution.update',ejecution))" enctype="multipart/form-data">
                         
                         <div class="mb-5">
                             <label for="" class="block mb-2 text-sm font-medium text-gray-900 ">Nombre ejecución*</label>
