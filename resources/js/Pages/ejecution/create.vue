@@ -37,6 +37,11 @@ const obtenerArchivos = (e) =>
 {
     form.files[flag++] = e.target.files[0];   
 }
+
+const cortina = () =>
+{
+    alert();
+}
 </script>
 
 
@@ -51,7 +56,7 @@ const obtenerArchivos = (e) =>
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-                    <form class="max-w-7xl mx-5 p-4" @submit.prevent="form.put(route('ejecution.store'))" enctype="multipart/form-data">
+                    <form class="max-w-7xl mx-5 p-4" @submit.prevent="form.post(route('ejecution.store'))" enctype="multipart/form-data" @submit="cortina()">
                         
                         <div class="mb-5">
                             <label for="" class="block mb-2 text-sm font-medium text-gray-900 ">Nombre ejecución*</label>
@@ -69,11 +74,10 @@ const obtenerArchivos = (e) =>
                         
                         <div class="grid grid-cols-3 gap-6">
                             <div class="" v-for="(item, index) in inputs" :key="index" >
-                                {{ item  }}
                                 <div :id="item.id">
                                     <label for="" class="block text-sm font-medium text-gray-900">Archivo(PDF)*</label>
-                                    <input type="file" @change="obtenerArchivos" :id="'file-' + index" name="files[]" class="block w-full p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-base " >                                
-                                    <label for="" class="block text-sm font-medium text-red-950 text-right hover:cursor-pointer" @click="eliminarCampo(item.id)">[X] - {{ index }}</label>
+                                    <input type="file" @change="obtenerArchivos" :id="'file-' + index" name="files[]" class="block w-full p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-base" required >                                
+                                    <label for="" class="block text-sm font-medium text-red-950 text-right hover:cursor-pointer" @click="eliminarCampo(item.id)">[X]</label>
                                 </div>
                             </div>
                         </div>

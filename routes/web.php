@@ -40,7 +40,7 @@ Route::middleware([
     // Route::resource('/ejecution',EjecutionController::class);
     Route::get('/ejecution',[EjecutionController::class,'index'])->name('ejecution.index');
     Route::get('/ejecution/create',[EjecutionController::class,'create'])->name('ejecution.create');
-    Route::post('/ejecution',[EjecutionController::class,'store']);
+    Route::post('/ejecution',[EjecutionController::class,'store'])->name('ejecution.store');
     Route::get('/ejecution/{ejecution}/edit',[EjecutionController::class,'edit'])->name('ejecution.edit');
     Route::post('/update',[EjecutionController::class,'update'])->name('ejecution.update');
 
