@@ -39,7 +39,7 @@ const deleteDocument = id =>
                 <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
                         
-                        <a v-if="$page.props.user.roles.includes('admin')" :href="route('document.create')" class="text-white bg-blue-500 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 m-2.5">Nuevo Documento</a>
+                        <a v-if="$page.props.user.roles.includes('admin')" :href="route('documents.create')" class="text-white bg-blue-500 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 m-2.5">Nuevo Documento</a>
 
                         <table class="w-full text-sm text-left rtl:text-right text-gray-500 mt-3">
                             <thead class="text-xs text-gray-100 uppercase bg-blue-400">

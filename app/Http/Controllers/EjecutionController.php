@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use File;
 use App\Models\ejecution;
 use App\Models\ejecution_file;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class EjecutionController extends Controller
 {
@@ -32,7 +34,7 @@ class EjecutionController extends Controller
     public function store(Request $request)
     { 
         $validate = $request->validate([
-            'name' => "required|string|unique:ejecutions,name",
+            'name' => "required|string",
             'description' => "required|string",
         ]);
         
@@ -97,7 +99,21 @@ class EjecutionController extends Controller
      */
     public function destroy(ejecution $ejecution)
     {
-        //
+        if($ejecution->delete())
+        {
+            $nombreCarpeta = str_replace(' ', '', $ejecution->name);
+            $dir = explode('app\Http\Controllers', dirname(__FILE__));
+
+            $urlArchivos = ejecution_file::where("ejecution_id","=",$ejecution->id)->get();
+            foreach( $urlArchivos as $archivo)
+            {
+                $ruta = $dir[0] ."public\storage\/" . $archivo->url;
+                unlink($ruta);
+                $archivo->delete();
+            }
+            $ruta = $dir[0] ."public\storage\/" . $nombreCarpeta;
+            rmdir($ruta);
+        }
     }
 
     public function deleteFile(Request $request)

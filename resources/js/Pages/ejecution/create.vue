@@ -2,8 +2,7 @@
 import AppLayout from '@/Layouts/AppLayout.vue';
 import { useForm } from '@inertiajs/vue3'
 import { reactive, ref } from 'vue';
-
-
+import Swal from 'sweetalert2'
 
 const form = useForm({
     name:'',
@@ -40,7 +39,13 @@ const obtenerArchivos = (e) =>
 
 const cortina = () =>
 {
-    alert();
+    Swal.fire({
+        title: 'Cargando!',
+        text: 'Subiendo archivos',
+        icon: 'info',
+        showConfirmButton: false,
+        allowOutsideClick: false
+    })
 }
 </script>
 

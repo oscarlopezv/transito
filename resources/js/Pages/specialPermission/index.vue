@@ -17,11 +17,11 @@ defineProps({
     }
 })
 
-const deletePermission = id =>
+const deletePermission = (id) =>
 {
     if(confirm('Esta seguro?'))
     {
-        router.delete(route('vehicle_type.destroy', id))
+        router.post(route('borrar', id))
     }
 }
 
@@ -41,7 +41,7 @@ const deletePermission = id =>
                 <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
                         
-                        <a :href="route('permission.create')" v-if="$page.props.user.roles.includes('admin')" class="text-white bg-blue-500 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 m-2.5">Nuevo permiso</a>
+                        <a :href="route('specialpermission.create')" v-if="$page.props.user.roles.includes('admin')" class="text-white bg-blue-500 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 m-2.5">Nuevo permiso</a>
 
                         <form action='specialpermission' method="get">
                             <div class="pt-6">

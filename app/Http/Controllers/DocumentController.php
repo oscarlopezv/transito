@@ -21,8 +21,13 @@ class DocumentController extends Controller
         {
             $tipoDocumento[$doc->id] = $doc->name;
         }
-
-        return inertia('document/index',["documents"=>$documents,"tipoDocumento" => $tipoDocumento,"storage_path"=>public_path() ]);
+      
+        return inertia('documents/index',
+        [
+            "documents"=>$documents,
+            "tipoDocumento" => $tipoDocumento,
+            "storage_path"=>public_path()
+        ]);
     }
 
     /**
@@ -31,7 +36,7 @@ class DocumentController extends Controller
     public function create()
     {
         $tipoDocumento = document_type::all();
-        return inertia('document/create',['tipoDocumento'=>$tipoDocumento]);
+        return inertia('documents/create',['tipoDocumento'=>$tipoDocumento]);
     }
 
     /**
@@ -54,7 +59,7 @@ class DocumentController extends Controller
         $document->ruta = $ruta;
         $document->save();
 
-        return redirect('document');
+        return redirect('documents');
     }
 
     /**
@@ -87,6 +92,6 @@ class DocumentController extends Controller
     public function destroy(document $document)
     {
         $document->delete();
-        return redirect('document');
+        return redirect('documents');
     }
 }

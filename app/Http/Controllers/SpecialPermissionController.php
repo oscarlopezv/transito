@@ -21,13 +21,6 @@ class SpecialPermissionController extends Controller
             $permisions = special_permission::where('placa',"=",$placa)->get();
         }
 
-        // if( @$_GET['lateral'])
-        // {
-        //     $lateral = $_GET['lateral'];
-        //     $permisions = $permisions->where('lateral',"=",$lateral);
-        // }
-        
-       
         $tipoVehiculoArray = vehicle_type::all();
         $tipoVehiculo = [];
         foreach( $tipoVehiculoArray as $vehiculo)
@@ -60,7 +53,7 @@ class SpecialPermissionController extends Controller
         ]);
 
         special_permission::create($validate);
-        return redirect('permission');
+        return redirect('specialpermission');
     }
 
     /**
@@ -92,8 +85,7 @@ class SpecialPermissionController extends Controller
      */
     public function destroy(special_permission $special_permission)
     {
-        return $_REQUEST;
-        // return $special_permission;
+        return $special_permission;
         $special_permission->delete();
     }
 

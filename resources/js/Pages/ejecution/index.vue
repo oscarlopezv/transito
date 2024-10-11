@@ -2,6 +2,12 @@
 import AppLayout from '@/Layouts/AppLayout.vue';
 import { useForm , Link} from '@inertiajs/vue3'
 import { router } from '@inertiajs/vue3'
+import { onBeforeMount } from 'vue';
+import Swal from 'sweetalert2'
+
+onBeforeMount(() => {
+    Swal.close();
+})
 
 
 defineProps({
@@ -14,11 +20,11 @@ defineProps({
     }
 })
 
-const deletePermission = id =>
+const deleteEjecution = id =>
 {
-    if(confirm('Esta seguro?'))
+    if(confirm('Esta seguro?, se borran los archivos'))
     {
-        router.delete(route('vehicle_type.destroy', id))
+        router.delete(route('ejecution.destroy', id))
     }
 }
 
@@ -75,7 +81,7 @@ const deletePermission = id =>
                                         {{ item.description.substring(0,50) }}
                                     </td>
                                     <td v-if="$page.props.user.roles.includes('admin')"  class="px-6 py-4">
-                                        <button @click="deletePermission(item.id)" class="focus:outline-none text-white bg-red-500 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">Borrar</button>
+                                        <button @click="deleteEjecution(item.id)" class="focus:outline-none text-white bg-red-500 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">Borrar</button>
                                         <a :href="route('ejecution.edit',item.id)" class="focus:outline-none text-white bg-green-500 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">Editar</a>
                                     </td>
                                 </tr>

@@ -25,15 +25,17 @@ Route::middleware([
     'verified',
 ])->group(function () {
     Route::get('/dashboard', function () {
-        return Inertia::render('Dashboard');
+        return redirect('specialpermission');
     })->name('dashboard');
 
-    Route::resource('/specialpermission', SpecialPermissionController::class)->names("permission");
+    Route::resource('/specialpermission', SpecialPermissionController::class);
+    Route::post('/borrar/{special_permission}', [SpecialPermissionController::class,'borrar'])->name('borrar');
+
 
     Route::resource('/vehicle_type',VehicleTypeController::class);
 
     Route::resource('/document_type',DocumentTypeController::class);
-    Route::resource('/document',DocumentController::class);
+    Route::resource('/documents',DocumentController::class);
 
     Route::resource('/user',UserController::class);
 
@@ -42,9 +44,8 @@ Route::middleware([
     Route::get('/ejecution/create',[EjecutionController::class,'create'])->name('ejecution.create');
     Route::post('/ejecution',[EjecutionController::class,'store'])->name('ejecution.store');
     Route::get('/ejecution/{ejecution}/edit',[EjecutionController::class,'edit'])->name('ejecution.edit');
+    Route::delete('/ejecution/{ejecution}',[EjecutionController::class,'destroy'])->name('ejecution.destroy');
     Route::post('/update',[EjecutionController::class,'update'])->name('ejecution.update');
-
-
     Route::post('/deleteFile',[EjecutionController::class,'deleteFile'])->name('deleteFile');
     
 });
