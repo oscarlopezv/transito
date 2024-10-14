@@ -35,7 +35,7 @@ const obtenerImagen = (e) =>
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-                    <form class="max-w-7xl mx-5 p-4" @submit.prevent="form.post(route('document.store'))" enctype="multipart/form-data">
+                    <form class="max-w-7xl mx-5 p-4" @submit.prevent="form.post(route('documents.store'))" enctype="multipart/form-data">
                         <div class="grid grid-cols-3 gap-6">
                             <div class="mb-5">
                                 <label for="" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tipo Documento*</label>

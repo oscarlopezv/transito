@@ -122,7 +122,7 @@ class EjecutionController extends Controller
         $ejecution_file = ejecution_file::find($request->id);
        
         $url = $ejecution_file->url;
-        //ruta absoluta del archivo
+        //ruta absoluta del archivo para borrar
         $dir = explode('app\Http\Controllers', dirname(__FILE__));
         $ruta = $dir[0] ."public\storage\/" . $url;
 
