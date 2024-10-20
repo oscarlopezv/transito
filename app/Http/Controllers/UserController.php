@@ -15,7 +15,7 @@ class UserController extends Controller
     public function index()
     {
         $usuarios = User::all();
-        return inertia('user/index',['usuarios'=>$usuarios]);
+        return inertia('user/index', ['usuarios' => $usuarios]);
     }
 
     /**
@@ -52,9 +52,10 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(user $user)
+    public function edit(User $user)
     {
-        return inertia('user/edit',['user'=>$user]);
+        //dd($user);
+        return inertia('user/edit', ['data' => $user]);
     }
 
     /**
@@ -69,9 +70,9 @@ class UserController extends Controller
 
         $user->name = $validate['name'];
         $user->document = $validate['document'];
-        
-        if($request->password != '')
-            $user->password = $request->password;        
+
+        if ($request->password != '')
+            $user->password = $request->password;
 
         $user->update();
         return redirect('user');
