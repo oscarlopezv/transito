@@ -54,7 +54,6 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        //dd($user);
         return inertia('user/edit', ['data' => $user]);
     }
 

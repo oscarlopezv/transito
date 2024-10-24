@@ -47,7 +47,7 @@ const form = useForm({
                             </div>
                             <div class="mb-5">
                                 <label for=""
-                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Contraseña</label>
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nueva contraseña</label>
                                 <input type="text" id="name" v-model="form.password" name="name"
                                     class="block w-full p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-base">
                             </div>
